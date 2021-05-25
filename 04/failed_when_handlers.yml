@@ -1,0 +1,21 @@
+---
+# YAML documents begin with the document separator ---
+
+# The minus in YAML this indicates a list item. The playbook contains a list of
+# plays, with each play being a dictionary
+-
+  # Target: where our play will run and options it will run with
+  hosts: webservers
+
+  # Task: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
+    - name: Fail task when both files are identical
+      raw: diff foo/file1 bar/file2
+      register: diff_cmd
+      failed_when: diff_cmd.rc == 0 or diff_cmd.rc >=2
+      ignore_errors: yes
+    - name: display command return code
+      debug: msg="{{ diff_cmd.rc }}"
+# Three dots indicate the end of a YAML document
+...

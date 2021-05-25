@@ -1,0 +1,21 @@
+---
+# YAML documents begin with the document separator ---
+
+# The minus in YAML this indicates a list item. The playbook contains a list of
+# plays, with each play being a dictionary
+-
+  # Target: where our play will run and options it will run with
+  hosts: webservers 
+
+  # Task: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
+    - name: This executes, fails, and the failure is ignored
+      command: /bin/true
+      ignore_unreachable: yes 
+
+    - name: This executes, fails, and ends the play for this host
+      command: /bin/true
+    
+# Three dots indicate the end of a YAML document
+...
